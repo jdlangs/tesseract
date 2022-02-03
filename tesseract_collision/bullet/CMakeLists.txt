@@ -13,12 +13,12 @@ if(NOT
 endif()
 
 if(WIN32) # This was required for windows to find things in tesseract_ext before the system which is an issue in ros-win
-  include_directories(BEFORE "${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIRS}")
-  link_directories(BEFORE "${BULLET_ROOT_DIR}/${BULLET_LIBRARY_DIRS}")
+  include_directories(BEFORE "${BULLET_INCLUDE_DIRS}")
+  link_directories(BEFORE "${BULLET_LIBRARY_DIRS}")
 endif()
 
-find_library(CONVEX_DECOMPOSITION_LIBRARY ConvexDecomposition HINTS ${BULLET_ROOT_DIR}/${BULLET_LIBRARY_DIRS})
-find_library(HACD_LIBRARY HACD HINTS ${BULLET_ROOT_DIR}/${BULLET_LIBRARY_DIRS})
+find_library(CONVEX_DECOMPOSITION_LIBRARY ConvexDecomposition HINTS ${BULLET_LIBRARY_DIRS})
+find_library(HACD_LIBRARY HACD HINTS ${BULLET_LIBRARY_DIRS})
 
 # Create target for Bullet implementation
 add_library(
@@ -55,7 +55,7 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 target_include_directories(${PROJECT_NAME}_bullet PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                          "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_bullet SYSTEM PUBLIC "${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIRS}")
+target_include_directories(${PROJECT_NAME}_bullet SYSTEM PUBLIC "${BULLET_INCLUDE_DIRS}")
 
 # Create target for Bullet implementation
 add_library(${PROJECT_NAME}_bullet_factories src/bullet_factories.cpp)
@@ -74,7 +74,7 @@ target_code_coverage(
 target_include_directories(
   ${PROJECT_NAME}_bullet_factories PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                           "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_bullet_factories SYSTEM PUBLIC "${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIRS}")
+target_include_directories(${PROJECT_NAME}_bullet_factories SYSTEM PUBLIC "${BULLET_INCLUDE_DIRS}")
 
 # Convex decomposition libraries
 if (${HACD_LIBRARY})
@@ -102,7 +102,7 @@ if (${HACD_LIBRARY})
     ${PROJECT_NAME}_hacd_convex_decomposition PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                      "$<INSTALL_INTERFACE:include>")
   target_include_directories(${PROJECT_NAME}_hacd_convex_decomposition SYSTEM
-                             PUBLIC "${BULLET_ROOT_DIR}/${BULLET_INCLUDE_DIRS}")
+                             PUBLIC "${BULLET_INCLUDE_DIRS}")
   install_targets(TARGETS ${PROJECT_NAME}_hacd_convex_decomposition)
 endif()
 
