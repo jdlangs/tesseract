@@ -28,6 +28,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#define YAML_CPP_DLL
 #include <yaml-cpp/yaml.h>
 #include <set>
 #include <array>

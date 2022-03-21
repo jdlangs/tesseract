@@ -35,6 +35,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 #include <unordered_map>
 #include <boost/filesystem.hpp>
+
+#define YAML_CPP_DLL
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
